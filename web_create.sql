@@ -2,37 +2,96 @@ DROP SCHEMA IF EXISTS web CASCADE;
 CREATE SCHEMA web;
 SET search_path TO web;
 
+DROP TYPE IF EXISTS role_name CASCADE;
+CREATE TYPE role_name AS ENUM('соискатель', 'студент', 'работодатель');
+
+DROP DOMAIN IF EXISTS email;
+DROP EXTENSION IF EXISTS citext;
+CREATE EXTENSION citext;
+CREATE DOMAIN email AS citext
+  CHECK ( value ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$' );
+
+CREATE TABLE auth (
+	mail email NOT NULL,
+	pwd text NOT NULL,
+    auth_id BIGSERIAL PRIMARY KEY,
+    auth_role role_name NOT NULL
+);
+
 CREATE TABLE city (
-    city_id BIGSERIAL PRIMARY KEY,
+    city_id SERIAL PRIMARY KEY,
     city_name text NOT NULL
 );
 
+CREATE TABLE edlevel (
+    edlevel_id SERIAL PRIMARY KEY,
+    edlevel_name text NOT NULL
+);
+
+CREATE TABLE experience (
+    experience_id BIGSERIAL PRIMARY KEY,
+    company text NOT NULL,
+	"position" text NOT NULL,
+	begin_date date NOT NULL,
+	end_date date,
+	salary BigInt 
+		CONSTRAINT experience_salary_check CHECK(salary >= 0) NOT NULL,
+	additional_info text DEFAULT ''
+);
+
+CREATE TABLE education (
+    education_id BIGSERIAL PRIMARY KEY,
+	edlevel_id INT
+		CONSTRAINT education_edlevel REFERENCES edlevel,
+    institute text NOT NULL,
+	faculty text NOT NULL,
+	begin_date date NOT NULL,
+	end_date date,
+	additional_info text DEFAULT ''
+);
+
 CREATE TABLE applicant (
+	auth_id BIGINT
+		CONSTRAINT applicant_auth REFERENCES auth,
     applicant_id BIGSERIAL PRIMARY KEY,
     fullname text NOT NULL,
 	contact_info text NOT NULL,
     age integer CONSTRAINT applicant_age_check CHECK(age >= 16) NOT NULL,
-    city_id BIGINT
+    city_id INT
 		CONSTRAINT applicant_city REFERENCES city,
-    education jsonb,
-	work_experience jsonb,
-	status bool DEFAULT TRUE,
-	desired_position text DEFAULT NULL,
-	desired_salary BIGINT DEFAULT NULL,
-	additional_info text DEFAULT NULL
+    education BIGINT[],
+	work_experience BIGINT[],
+	status bool DEFAULT TRUE
 );
 
 CREATE TABLE company (
+	auth_id BIGINT
+		CONSTRAINT company_auth REFERENCES auth,
     company_id BIGSERIAL PRIMARY KEY,
     company_name text NOT NULL,
-    workers_id integer[]
+    workers_id BigInt[],
+	vacancies BigInt[]
 );
 
 CREATE TABLE vacancy (
-    company_id BIGINT 
-		CONSTRAINT company_vacancy REFERENCES company,
-    vacancy_id BIGSERIAL NOT NULL,
+    vacancy_id BIGSERIAL PRIMARY KEY,
+	company_id BIGINT 
+		CONSTRAINT vacancy_company REFERENCES company,
 	vacancy_name text NOT NULL,
-	salary BIGINT NOT NULL,
-	requirements text
+	salary BIGINT
+		CONSTRAINT vacancy_salary_check CHECK(salary >= 0) NOT NULL,
+	requirements text NOT NULL,
+	additional_info text DEFAULT ''
+);
+
+CREATE TABLE resume (
+    resume_id BIGSERIAL PRIMARY KEY,
+	applicant_id BIGINT 
+		CONSTRAINT resume_applicant REFERENCES applicant,
+	desired_position text NOT NULL,
+	desired_salary BIGINT
+		CONSTRAINT resume_salary_check CHECK(desired_salary >= 0) NOT NULL,
+	education BIGINT[],
+	work_experience BIGINT[],
+	additional_info text DEFAULT ''
 );

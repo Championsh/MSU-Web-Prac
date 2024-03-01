@@ -20,22 +20,49 @@ VALUES
 ('Тверь'),
 ('Москва');
 
-INSERT INTO applicant(fullname, contact_info, age, city_id, education, work_experience, desired_position, desired_salary)
+INSERT INTO auth(mail, pwd, auth_role)
 VALUES
-('Ревва Тимур Дмитриевич', '89391689376', 40, 2, '{"МГУ": {"Года учебы": {"Начало": 2000, "Окончание": 2004}, "Факультет": "ВМК", "Достижения": ""}}', NULL, NULL, NULL),
-('Варнава Иван Романович', '89058544610', 20, 10, '{"МГУ": {"Года учебы": {"Начало": 2022, "Окончание": 2026}, "Факультет": "ВМК", "Достижения": ""}}', '{"ПАО Сбербанк": {"Дата начала": "17.07.2018", "Дата окончания": "17.07.2020", "Должность": "стажер-аналитик", "Обязанности": ""}}', NULL, NULL),
-('Батрудинов Андрей Кириллович', '89600300161', 50, 7, '{"МГУ": {"Года учебы": {"Начало": 1980, "Окончание": 1984}, "Факультет": "ВМК", "Достижения": ""}}', '{"ПАО Сбербанк": {"Дата начала": "01.09.1985", "Дата окончания": "", "Должность": "главный-аналитик", "Обязанности": ""}}', 'руководитель направления аналитики', 2000000),
-('Ревва Геннадий Александрович', '89212816293', 20, 9, '{"МГУ": {"Года учебы": {"Начало": 2022, "Окончание": 2026}, "Факультет": "ВМК", "Достижения": ""}}', '{"ПАО Сбербанк": {"Дата начала": "17.07.2018", "Дата окончания": "17.07.2020", "Должность": "стажер-аналитик", "Обязанности": ""}}', NULL, NULL),
-('Гудков Владимир Тимурович', '89458106025', 40, 1, '{"МГУ": {"Года учебы": {"Начало": 2000, "Окончание": 0}, "Факультет": "ВМК", "Достижения": ""}}', NULL, NULL, NULL);
+('first@mail.ru'::email, 'firstpwd', 'соискатель'::role_name),
+('second@mail.ru'::email, 'secondpwd', 'студент'::role_name),
+('third@mail.ru'::email, 'thirdpwd', 'работодатель'::role_name),
+('fourth@mail.ru'::email, 'fourthpwd', 'работодатель'::role_name);
 
-INSERT INTO company(company_name, workers_id)
+INSERT INTO edlevel(edlevel_name)
 VALUES
-('ПАО Сбербанк', array[1, 2, 3]),
-('ООО Студенческая столовая', array[4, 3]),
-('ПАО Оап', array[1, 3]);
+('Бакалавриат'),
+('Специалитет'),
+('Магистратура'),
+('Аспирантура'),
+('Доктонатура');
 
-INSERT INTO vacancy(company_id, vacancy_name, salary)
+INSERT INTO experience(company, "position", begin_date, end_date, salary)
 VALUES
-(1, 'Директор по развитию', 100000),
-(2, 'руководитель отделения аналитики', 500000),
-(2, 'руководитель департамента аналитики', 5000000);
+('ОАО Кадровое Агенство', 'Сеньор Python разработчик', DATE '2010-07-10', DATE '2023-07-21', 300000::BIGINT);
+INSERT INTO experience(company, "position", begin_date, salary)
+VALUES
+('ПАО Сбербанк', 'Руководитель отдела поставок', DATE '2020-06-20', 250000::BIGINT);
+
+INSERT INTO education(edlevel_id, institute, faculty, begin_date, end_date)
+VALUES
+(1, 'МГУ им М.В. Ломоносова', 'ВМК', DATE '2021-09-01', DATE '2025-06-20'),
+(1, 'МГУ им М.В. Ломоносова', 'ФИИТ', DATE '2020-09-01', DATE '2024-06-20');
+
+INSERT INTO applicant(auth_id, fullname, contact_info, age, city_id, education, work_experience)
+VALUES
+(1, 'Ревва Тимур Дмитриевич', '89391689376', 40, 2, '{1}'::BIGINT[], '{2}'::BIGINT[]),
+(2, 'Варнава Иван Романович', '89058544610', 20, 10, '{2}'::BIGINT[], '{1}'::BIGINT[]);
+
+INSERT INTO company(auth_id, company_name, workers_id, vacancies)
+VALUES
+(3, 'ПАО Сбербанк', '{2}'::BIGINT[], '{1}'::BIGINT[]),
+(4, 'ООО Студенческая столовая', '{}'::BIGINT[], '{2}'::BIGINT[]);
+
+INSERT INTO vacancy(company_id, vacancy_name, salary, requirements)
+VALUES
+(1, 'Директор по развитию', 100000, 'Продвинутое владение Word'),
+(2, 'Руководитель отдела аналитики', 500000, 'Умение работать в команде');
+
+INSERT INTO resume(applicant_id, desired_position, desired_salary, education, work_experience)
+VALUES
+(1, 'Директор по развитию', 1000000, '{1}'::BIGINT[], '{2}'::BIGINT[]),
+(2, 'Руководитель отдела аналитики', 500000, '{2}'::BIGINT[], '{1}'::BIGINT[]);
