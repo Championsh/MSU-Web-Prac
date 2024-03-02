@@ -28,28 +28,6 @@ CREATE TABLE edlevel (
     edlevel_name text NOT NULL
 );
 
-CREATE TABLE experience (
-    experience_id BIGSERIAL PRIMARY KEY,
-    company text NOT NULL,
-	"position" text NOT NULL,
-	begin_date date NOT NULL,
-	end_date date,
-	salary BigInt 
-		CONSTRAINT experience_salary_check CHECK(salary >= 0) NOT NULL,
-	additional_info text DEFAULT ''
-);
-
-CREATE TABLE education (
-    education_id BIGSERIAL PRIMARY KEY,
-	edlevel_id INT
-		CONSTRAINT education_edlevel REFERENCES edlevel,
-    institute text NOT NULL,
-	faculty text NOT NULL,
-	begin_date date NOT NULL,
-	end_date date,
-	additional_info text DEFAULT ''
-);
-
 CREATE TABLE applicant (
 	auth_id BIGINT
 		CONSTRAINT applicant_auth REFERENCES auth,
@@ -59,18 +37,63 @@ CREATE TABLE applicant (
     age integer CONSTRAINT applicant_age_check CHECK(age >= 16) NOT NULL,
     city_id INT
 		CONSTRAINT applicant_city REFERENCES city,
-    education BIGINT[],
-	work_experience BIGINT[],
 	status bool DEFAULT TRUE
+);
+
+CREATE TABLE experience (
+	applicant_id BIGINT
+		CONSTRAINT experience_applicant REFERENCES applicant,
+    experience_id BIGSERIAL PRIMARY KEY,
+    company text NOT NULL,
+	"position" text NOT NULL,
+	begin_date date NOT NULL,
+	end_date date,
+	salary BigInt 
+		CONSTRAINT experience_salary_check CHECK(salary >= 0) NOT NULL
+);
+
+CREATE TABLE education (
+	applicant_id BIGINT
+		CONSTRAINT education_applicant REFERENCES applicant,
+    education_id BIGSERIAL PRIMARY KEY,
+	edlevel_id INT
+		CONSTRAINT education_edlevel REFERENCES edlevel,
+    institute text NOT NULL,
+	faculty text NOT NULL,
+	begin_date date NOT NULL,
+	end_date date
+);
+
+CREATE TABLE resume (
+    resume_id BIGSERIAL PRIMARY KEY,
+	applicant_id BIGINT 
+		CONSTRAINT resume_applicant REFERENCES applicant,
+	desired_position text NOT NULL,
+	desired_salary BIGINT
+		CONSTRAINT resume_salary_check CHECK(desired_salary >= 0) NOT NULL
+);
+
+CREATE TABLE experience_resume (
+	resume_id BIGINT
+		CONSTRAINT resume_experience REFERENCES resume,
+    experience_id BIGINT
+		CONSTRAINT experience_resume REFERENCES experience,
+	additional_info text DEFAULT ''
+);
+
+CREATE TABLE education_resume (
+	resume_id BIGINT
+		CONSTRAINT resume_education REFERENCES resume,
+    education_id BIGINT
+		CONSTRAINT education_resume REFERENCES education,
+	additional_info text DEFAULT ''
 );
 
 CREATE TABLE company (
 	auth_id BIGINT
 		CONSTRAINT company_auth REFERENCES auth,
     company_id BIGSERIAL PRIMARY KEY,
-    company_name text NOT NULL,
-    workers_id BigInt[],
-	vacancies BigInt[]
+    company_name text NOT NULL
 );
 
 CREATE TABLE vacancy (
@@ -84,14 +107,14 @@ CREATE TABLE vacancy (
 	additional_info text DEFAULT ''
 );
 
-CREATE TABLE resume (
-    resume_id BIGSERIAL PRIMARY KEY,
-	applicant_id BIGINT 
-		CONSTRAINT resume_applicant REFERENCES applicant,
-	desired_position text NOT NULL,
-	desired_salary BIGINT
-		CONSTRAINT resume_salary_check CHECK(desired_salary >= 0) NOT NULL,
-	education BIGINT[],
-	work_experience BIGINT[],
-	additional_info text DEFAULT ''
+CREATE TABLE applicant_company (
+	applicant_id BIGINT
+		CONSTRAINT applicant_company REFERENCES applicant,
+    company_id BIGINT
+		CONSTRAINT company_applicant REFERENCES company,
+	begin_date date NOT NULL,
+	end_date date,
+	position_name text NOT NULL,
+	salary BIGINT
+		CONSTRAINT applicant_company_salary_check CHECK(salary >= 0)
 );
