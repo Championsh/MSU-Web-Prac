@@ -35,34 +35,50 @@ VALUES
 ('Аспирантура'),
 ('Доктонатура');
 
-INSERT INTO experience(company, "position", begin_date, end_date, salary)
+INSERT INTO applicant(auth_id, fullname, contact_info, age, city_id)
 VALUES
-('ОАО Кадровое Агенство', 'Сеньор Python разработчик', DATE '2010-07-10', DATE '2023-07-21', 300000::BIGINT);
-INSERT INTO experience(company, "position", begin_date, salary)
-VALUES
-('ПАО Сбербанк', 'Руководитель отдела поставок', DATE '2020-06-20', 250000::BIGINT);
+(1, 'Ревва Тимур Дмитриевич', '89391689376', 40, 2),
+(2, 'Варнава Иван Романович', '89058544610', 20, 10);
 
-INSERT INTO education(edlevel_id, institute, faculty, begin_date, end_date)
+INSERT INTO experience(applicant_id, company, "position", begin_date, end_date, salary)
 VALUES
-(1, 'МГУ им М.В. Ломоносова', 'ВМК', DATE '2021-09-01', DATE '2025-06-20'),
-(1, 'МГУ им М.В. Ломоносова', 'ФИИТ', DATE '2020-09-01', DATE '2024-06-20');
+(1, 'ОАО Кадровое Агенство', 'Мидл Python разработчик', DATE '2010-07-10', DATE '2020-06-19', 300000::BIGINT),
+(2, 'ОАО ИТ Компания', 'Джуниор Java разработчик', DATE '2020-07-10', DATE '2024-02-21', 150000::BIGINT),
+(1, 'ПАО Сбербанк', 'Руководитель отдела поставок', DATE '2020-06-20', DATE '2024-02-21', 250000::BIGINT);
 
-INSERT INTO applicant(auth_id, fullname, contact_info, age, city_id, education, work_experience)
+INSERT INTO education(applicant_id, edlevel_id, institute, faculty, begin_date, end_date)
 VALUES
-(1, 'Ревва Тимур Дмитриевич', '89391689376', 40, 2, '{1}'::BIGINT[], '{2}'::BIGINT[]),
-(2, 'Варнава Иван Романович', '89058544610', 20, 10, '{2}'::BIGINT[], '{1}'::BIGINT[]);
+(1, 1, 'МГУ им М.В. Ломоносова', 'ВМК', DATE '2000-09-01', DATE '2004-06-20'),
+(2, 1, 'МГУ им М.В. Ломоносова', 'ФИИТ', DATE '2020-09-01', DATE '2024-06-20');
 
-INSERT INTO company(auth_id, company_name, workers_id, vacancies)
+INSERT INTO resume(applicant_id, desired_position, desired_salary)
 VALUES
-(3, 'ПАО Сбербанк', '{2}'::BIGINT[], '{1}'::BIGINT[]),
-(4, 'ООО Студенческая столовая', '{}'::BIGINT[], '{2}'::BIGINT[]);
+(1, 'Директор по развитию', 1000000),
+(2, 'Руководитель отдела аналитики', 500000);
+
+INSERT INTO experience_resume(resume_id, experience_id)
+VALUES
+(1, 1),
+(1, 2),
+(2, 2);
+
+INSERT INTO education_resume(resume_id, education_id)
+VALUES
+(1, 1),
+(2, 2);
+
+INSERT INTO company(auth_id, company_name)
+VALUES
+(3, 'ПАО Сбербанк'),
+(4, 'ОАО ИТ Компания');
 
 INSERT INTO vacancy(company_id, vacancy_name, salary, requirements)
 VALUES
-(1, 'Директор по развитию', 100000, 'Продвинутое владение Word'),
+(1, 'Директор по развитию', 1000000, 'Продвинутое владение Word'),
 (2, 'Руководитель отдела аналитики', 500000, 'Умение работать в команде');
 
-INSERT INTO resume(applicant_id, desired_position, desired_salary, education, work_experience)
+INSERT INTO applicant_company(applicant_id, company_id, begin_date, end_date, position_name, salary)
 VALUES
-(1, 'Директор по развитию', 1000000, '{1}'::BIGINT[], '{2}'::BIGINT[]),
-(2, 'Руководитель отдела аналитики', 500000, '{2}'::BIGINT[], '{1}'::BIGINT[]);
+(1, 1, DATE '2020-06-20', DATE '2024-02-21', 'Руководитель отдела поставок', 250000::BIGINT),
+(2, 2, DATE '2020-07-10', DATE '2024-02-21', 'Джуниор Java разработчик', 150000::BIGINT);
+
