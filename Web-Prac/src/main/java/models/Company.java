@@ -2,7 +2,9 @@ package models;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "company", schema = "web")
@@ -25,6 +27,14 @@ public class Company {
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ApplicantCompany> applicantCompanies = new ArrayList<>();
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "applicant_company",
+            joinColumns = { @JoinColumn(name = "company_id") },
+            inverseJoinColumns = { @JoinColumn(name = "applicant_id") }
+    )
+    Set<Applicant> applicants = new HashSet<>();
 
     public Company() {
     }

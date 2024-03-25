@@ -140,10 +140,6 @@
     </class>
 
     <class name="models.ApplicantCompany" table="applicant_company">
-        <composite-id>
-            <key-property name="applicant" column="applicant_id"/>
-            <key-property name="company" column="company_id"/>
-        </composite-id>
         <many-to-one name="applicant" column="applicant_id" class="models.Applicant"/>
         <many-to-one name="company" column="company_id" class="models.Company"/>
         <property name="beginDate" column="begin_date"/>

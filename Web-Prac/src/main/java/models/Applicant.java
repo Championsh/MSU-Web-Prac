@@ -2,7 +2,9 @@ package models;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "applicant", schema = "web")
@@ -42,6 +44,8 @@ public class Applicant {
     @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resume> resumes = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "projects")
+    private Set<Company> companies = new HashSet<>();
 
     public Applicant() {
     }
