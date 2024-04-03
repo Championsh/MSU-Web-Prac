@@ -56,11 +56,11 @@ VALUES
 (1, 'Директор по развитию', 1000000),
 (2, 'Руководитель отдела аналитики', 500000);
 
-INSERT INTO experience_resume(resume_id, experience_id)
+INSERT INTO experience_resume(resume_id, experience_id, additional_info)
 VALUES
-(1, 1),
-(1, 2),
-(2, 2);
+(1, 1, 'Продвинутое владение Word'),
+(1, 2, ''),
+(2, 2, 'Умение работать в команде');
 
 INSERT INTO education_resume(resume_id, education_id)
 VALUES
