@@ -1,0 +1,192 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1251"> 
+  <title>Coverage Report > VacancyDao</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.web.recruit.dao</a>
+</div>
+
+<h1>Coverage Summary for Class: VacancyDao (com.web.recruit.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">VacancyDao</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (47/47)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.web.recruit.dao;
+&nbsp;
+&nbsp;import jakarta.persistence.TypedQuery;
+&nbsp;import com.web.recruit.models.*;
+&nbsp;import org.hibernate.Session;
+&nbsp;import org.hibernate.Transaction;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.StringJoiner;
+&nbsp;
+&nbsp;import com.web.recruit.utils.HibernateSessionFactory;
+&nbsp;
+&nbsp;public class VacancyDao extends CommonDao&lt;Vacancy&gt; {
+&nbsp;
+&nbsp;    public VacancyDao() {
+<b class="fc">&nbsp;        super(Vacancy.class);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public List&lt;Resume&gt; findVacancyResumes(Vacancy obj) {
+<b class="fc">&nbsp;        try (Session session = HibernateSessionFactory.getSessionFactory().getCurrentSession()) {</b>
+<b class="fc">&nbsp;            Transaction t = session.beginTransaction();</b>
+<b class="fc">&nbsp;            StringBuilder queryString = new StringBuilder(&quot;SELECT r FROM Resume r &quot;);</b>
+<b class="fc">&nbsp;            queryString.append(&quot;WHERE r.desiredPosition = :vacancyName &quot;);</b>
+<b class="fc">&nbsp;            if (obj.getSalary() != null) queryString.append(&quot;AND r.desiredSalary &lt;= :salary &quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;            TypedQuery&lt;Resume&gt; query = session.createQuery(queryString.toString(), Resume.class);</b>
+&nbsp;
+<b class="fc">&nbsp;            query.setParameter(&quot;vacancyName&quot;, obj.getVacancyName());</b>
+<b class="fc">&nbsp;            if (obj.getSalary() != null) query.setParameter(&quot;salary&quot;, obj.getSalary());</b>
+&nbsp;
+<b class="fc">&nbsp;            List&lt;Resume&gt; resumes = query.getResultList();</b>
+<b class="fc">&nbsp;            List&lt;Resume&gt; res = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;            List&lt;String&gt; requirements = List.of(obj.getRequirements().split(&quot;;&quot;));</b>
+<b class="fc">&nbsp;            for (Resume resume: resumes) {</b>
+<b class="fc">&nbsp;                boolean flag = true;</b>
+<b class="fc">&nbsp;                StringJoiner educationsInfo = new StringJoiner(&quot;\n&quot;);</b>
+<b class="fc">&nbsp;                for (EducationResume educationResume: resume.getEducationResumes()) educationsInfo.add(educationResume.getAdditionalInfo());</b>
+&nbsp;
+<b class="fc">&nbsp;                StringJoiner experiencesInfo = new StringJoiner(&quot;\n&quot;);</b>
+<b class="fc">&nbsp;                for (ExperienceResume experienceResume: resume.getExperienceResumes()) experiencesInfo.add(experienceResume.getAdditionalInfo());</b>
+&nbsp;
+<b class="fc">&nbsp;                String resumeInfo = experiencesInfo + &quot;;\n&quot; + educationsInfo;</b>
+&nbsp;
+<b class="fc">&nbsp;                for (String requirement: requirements) {</b>
+<b class="fc">&nbsp;                    if (!resumeInfo.toLowerCase().contains(requirement.toLowerCase())) {</b>
+<b class="fc">&nbsp;                        flag = false;</b>
+<b class="fc">&nbsp;                        break;</b>
+&nbsp;                    }
+<b class="fc">&nbsp;                }</b>
+<b class="fc">&nbsp;                if (flag)</b>
+<b class="fc">&nbsp;                    res.add(resume);</b>
+<b class="fc">&nbsp;            }</b>
+&nbsp;
+<b class="fc">&nbsp;            t.commit();</b>
+<b class="fc">&nbsp;            return res;</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Vacancy&gt; vacancyFilter(List&lt;String&gt; vacancyNames, List&lt;Company&gt; companies, Long minSalary, Long maxSalary) {
+<b class="fc">&nbsp;        try (Session session = HibernateSessionFactory.getSessionFactory().getCurrentSession()) {</b>
+<b class="fc">&nbsp;            Transaction t = session.beginTransaction();</b>
+<b class="fc">&nbsp;            StringBuilder queryString = new StringBuilder(&quot;SELECT DISTINCT v FROM Vacancy v&quot;);</b>
+&nbsp;//            if (companies != null &amp;&amp; !companies.isEmpty())
+&nbsp;//                queryString.append(&quot; LEFT JOIN v.company c&quot;);
+&nbsp;
+<b class="fc">&nbsp;            queryString.append(&quot; WHERE TRUE&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;            if (vacancyNames != null &amp;&amp; !vacancyNames.isEmpty()) queryString.append(&quot; AND v.vacancyName IN :vacancyNames&quot;);</b>
+<b class="fc">&nbsp;            if (companies != null &amp;&amp; !companies.isEmpty()) queryString.append(&quot; AND v.company IN :companies&quot;);</b>
+<b class="fc">&nbsp;            if (minSalary != null) queryString.append(&quot; AND v.salary &gt;= :minSalary&quot;);</b>
+<b class="fc">&nbsp;            if (maxSalary != null) queryString.append(&quot; AND v.salary &lt;= :maxSalary&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;            TypedQuery&lt;Vacancy&gt; query = session.createQuery(queryString.toString(), Vacancy.class);</b>
+&nbsp;
+<b class="fc">&nbsp;            if (vacancyNames != null &amp;&amp; !vacancyNames.isEmpty()) query.setParameter(&quot;vacancyNames&quot;, vacancyNames);</b>
+<b class="fc">&nbsp;            if (companies != null &amp;&amp; !companies.isEmpty()) query.setParameter(&quot;companies&quot;, companies);</b>
+<b class="fc">&nbsp;            if (minSalary != null) query.setParameter(&quot;minSalary&quot;, minSalary);</b>
+<b class="fc">&nbsp;            if (maxSalary != null) query.setParameter(&quot;maxSalary&quot;, maxSalary);</b>
+&nbsp;
+<b class="fc">&nbsp;            List&lt;Vacancy&gt; res = query.getResultList();</b>
+<b class="fc">&nbsp;            t.commit();</b>
+<b class="fc">&nbsp;            return res;</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-04 20:47</div>
+</div>
+</body>
+</html>

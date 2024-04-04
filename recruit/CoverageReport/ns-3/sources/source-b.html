@@ -1,0 +1,260 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1251"> 
+  <title>Coverage Report > Experience</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.web.recruit.models</a>
+</div>
+
+<h1>Coverage Summary for Class: Experience (com.web.recruit.models)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Experience</td>
+<td class="coverageStat">
+  <span class="percent">
+    55%
+  </span>
+  <span class="absValue">
+    (11/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63,4%
+  </span>
+  <span class="absValue">
+    (26/41)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Experience$HibernateInstantiator$4KfdMkSw</td>
+  </tr>
+  <tr>
+    <td class="name">Experience$HibernateProxy$ObhQO8nK</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    55%
+  </span>
+  <span class="absValue">
+    (11/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63,4%
+  </span>
+  <span class="absValue">
+    (26/41)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.web.recruit.models;
+&nbsp;
+&nbsp;import jakarta.persistence.*;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;experience&quot;, schema = &quot;web&quot;)
+&nbsp;public class Experience {
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    @Column(name = &quot;experience_id&quot;)
+&nbsp;    private Long experienceId;
+&nbsp;
+&nbsp;    @ManyToOne(targetEntity = Applicant.class)
+&nbsp;    @JoinColumn(name = &quot;applicant_id&quot;)
+&nbsp;    private Applicant applicant;
+&nbsp;
+&nbsp;    @Column(name = &quot;company&quot;)
+&nbsp;    private String company;
+&nbsp;
+&nbsp;    @Column(name = &quot;position&quot;)
+&nbsp;    private String position;
+&nbsp;
+&nbsp;    @Column(name = &quot;begin_date&quot;)
+&nbsp;    private java.sql.Date beginDate;
+&nbsp;
+&nbsp;    @Column(name = &quot;end_date&quot;)
+&nbsp;    private java.sql.Date endDate;
+&nbsp;
+&nbsp;    @Column(name = &quot;salary&quot;)
+&nbsp;    private Long salary;
+&nbsp;
+<b class="fc">&nbsp;    public Experience() {</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Experience(Applicant applicant, String company, String position, java.sql.Date beginDate, Long salary) {</b>
+<b class="fc">&nbsp;        this.applicant = applicant;</b>
+<b class="fc">&nbsp;        this.company = company;</b>
+<b class="fc">&nbsp;        this.position = position;</b>
+<b class="fc">&nbsp;        this.beginDate = beginDate;</b>
+<b class="fc">&nbsp;        this.endDate = null;</b>
+<b class="fc">&nbsp;        this.salary = salary;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public Experience(Applicant applicant, String company, String position, java.sql.Date beginDate, java.sql.Date endDate, Long salary) {</b>
+<b class="nc">&nbsp;        this.applicant = applicant;</b>
+<b class="nc">&nbsp;        this.company = company;</b>
+<b class="nc">&nbsp;        this.position = position;</b>
+<b class="nc">&nbsp;        this.beginDate = beginDate;</b>
+<b class="nc">&nbsp;        this.endDate = endDate;</b>
+<b class="nc">&nbsp;        this.salary = salary;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Long getExperienceId() {
+<b class="fc">&nbsp;        return experienceId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setExperienceId(Long experienceId) {
+<b class="nc">&nbsp;        this.experienceId = experienceId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Applicant getApplicant() {
+<b class="fc">&nbsp;        return applicant;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setApplicant(Applicant applicant) {
+<b class="nc">&nbsp;        this.applicant = applicant;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getCompany() {
+<b class="fc">&nbsp;        return company;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCompany(String company) {
+<b class="nc">&nbsp;        this.company = company;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPosition() {
+<b class="fc">&nbsp;        return position;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPosition(String position) {
+<b class="nc">&nbsp;        this.position = position;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public java.sql.Date getBeginDate() {
+<b class="fc">&nbsp;        return beginDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBeginDate(java.sql.Date beginDate) {
+<b class="nc">&nbsp;        this.beginDate = beginDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public java.sql.Date getEndDate() {
+<b class="fc">&nbsp;        return endDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setEndDate(java.sql.Date endDate) {
+<b class="nc">&nbsp;        this.endDate = endDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Long getSalary() {
+<b class="fc">&nbsp;        return salary;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSalary(Long salary) {
+<b class="nc">&nbsp;        this.salary = salary;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object o) {
+<b class="fc">&nbsp;        if (this == o) return true;</b>
+<b class="fc">&nbsp;        if (!(o instanceof Experience)) return false;</b>
+<b class="fc">&nbsp;        Experience experience = (Experience) o;</b>
+<b class="fc">&nbsp;        return Objects.equals(getExperienceId(), experience.getExperienceId()) &amp;&amp;</b>
+<b class="fc">&nbsp;                Objects.equals(getApplicant(), experience.getApplicant()) &amp;&amp;</b>
+<b class="fc">&nbsp;                Objects.equals(getCompany(), experience.getCompany()) &amp;&amp;</b>
+<b class="fc">&nbsp;                Objects.equals(getPosition(), experience.getPosition()) &amp;&amp;</b>
+<b class="fc">&nbsp;                Objects.equals(getBeginDate(), experience.getBeginDate()) &amp;&amp;</b>
+<b class="fc">&nbsp;                Objects.equals(getEndDate(), experience.getEndDate()) &amp;&amp;</b>
+<b class="fc">&nbsp;                Objects.equals(getSalary(), experience.getSalary());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="fc">&nbsp;        return Objects.hash(getExperienceId(), getApplicant(), getCompany(), getPosition(), getBeginDate(), getEndDate(), getSalary());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;Experience{&quot; +</b>
+&nbsp;                &quot;experienceId=&quot; + experienceId +
+&nbsp;                &quot;, applicant=&quot; + applicant +
+&nbsp;                &quot;, company=&#39;&quot; + company + &#39;\&#39;&#39; +
+&nbsp;                &quot;, position=&#39;&quot; + position + &#39;\&#39;&#39; +
+&nbsp;                &quot;, beginDate=&quot; + beginDate +
+&nbsp;                &quot;, endDate=&quot; + endDate +
+&nbsp;                &quot;, salary=&quot; + salary +
+&nbsp;                &#39;}&#39;;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-04 20:47</div>
+</div>
+</body>
+</html>

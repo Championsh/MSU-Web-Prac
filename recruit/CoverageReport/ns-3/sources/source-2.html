@@ -1,0 +1,245 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1251"> 
+  <title>Coverage Report > ApplicantCompany</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.web.recruit.models</a>
+</div>
+
+<h1>Coverage Summary for Class: ApplicantCompany (com.web.recruit.models)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ApplicantCompany</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ApplicantCompany$HibernateInstantiator$QWLlReWO</td>
+  </tr>
+  <tr>
+    <td class="name">ApplicantCompany$HibernateProxy$MOUodM1G</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.web.recruit.models;
+&nbsp;import jakarta.persistence.*;
+&nbsp;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;applicant_company&quot;, schema = &quot;web&quot;)
+&nbsp;@IdClass(ApplicantCompanyId.class)
+&nbsp;public class ApplicantCompany {
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @ManyToOne(targetEntity = Applicant.class)
+&nbsp;    @JoinColumn(name = &quot;applicant_id&quot;)
+&nbsp;    private Long companyApplicantId;
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @ManyToOne(targetEntity = Company.class)
+&nbsp;    @JoinColumn(name = &quot;company_id&quot;)
+&nbsp;    private Long applicantCompanyId;
+&nbsp;
+&nbsp;    @ManyToOne(targetEntity = Applicant.class)
+&nbsp;    @JoinColumn(name = &quot;applicant_id&quot;)
+&nbsp;    private Applicant applicant;
+&nbsp;
+&nbsp;    @ManyToOne(targetEntity = Company.class)
+&nbsp;    @JoinColumn(name = &quot;company_id&quot;)
+&nbsp;    private Company company;
+&nbsp;
+&nbsp;    @Column(name = &quot;begin_date&quot;)
+&nbsp;    private java.sql.Date beginDate;
+&nbsp;
+&nbsp;    @Column(name = &quot;end_date&quot;)
+&nbsp;    private java.sql.Date endDate;
+&nbsp;
+&nbsp;    @Column(name = &quot;position_name&quot;)
+&nbsp;    private String positionName;
+&nbsp;
+&nbsp;    @Column(name = &quot;salary&quot;)
+&nbsp;    private Long salary;
+&nbsp;
+<b class="nc">&nbsp;    public ApplicantCompany() {</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public ApplicantCompany(Applicant applicant, Company company, java.sql.Date beginDate, java.sql.Date endDate, String positionName, Long salary) {</b>
+<b class="nc">&nbsp;        this.applicant = applicant;</b>
+<b class="nc">&nbsp;        this.company = company;</b>
+<b class="nc">&nbsp;        this.beginDate = beginDate;</b>
+<b class="nc">&nbsp;        this.endDate = endDate;</b>
+<b class="nc">&nbsp;        this.positionName = positionName;</b>
+<b class="nc">&nbsp;        this.salary = salary;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Long getCompanyApplicantId() {
+<b class="nc">&nbsp;        return companyApplicantId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCompanyApplicantId(Long companyApplicantId) {
+<b class="nc">&nbsp;        this.companyApplicantId = companyApplicantId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Long getApplicantCompanyId() {
+<b class="nc">&nbsp;        return applicantCompanyId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setApplicantCompanyId(Long applicantCompanyId) {
+<b class="nc">&nbsp;        this.applicantCompanyId = applicantCompanyId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Applicant getApplicant() {
+<b class="nc">&nbsp;        return applicant;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setApplicant(Applicant applicant) {
+<b class="nc">&nbsp;        this.applicant = applicant;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Company getCompany() {
+<b class="nc">&nbsp;        return company;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCompany(Company company) {
+<b class="nc">&nbsp;        this.company = company;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public java.sql.Date getBeginDate() {
+<b class="nc">&nbsp;        return beginDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBeginDate(java.sql.Date beginDate) {
+<b class="nc">&nbsp;        this.beginDate = beginDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public java.sql.Date getEndDate() {
+<b class="nc">&nbsp;        return endDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setEndDate(java.sql.Date endDate) {
+<b class="nc">&nbsp;        this.endDate = endDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPositionName() {
+<b class="nc">&nbsp;        return positionName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPositionName(String positionName) {
+<b class="nc">&nbsp;        this.positionName = positionName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Long getSalary() {
+<b class="nc">&nbsp;        return salary;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSalary(Long salary) {
+<b class="nc">&nbsp;        this.salary = salary;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;ApplicantCompany{&quot; +</b>
+&nbsp;                &quot;ApplicantCompanyId=&quot; + new ApplicantCompanyId(companyApplicantId, applicantCompanyId) +
+&nbsp;                &quot;applicant=&quot; + applicant +
+&nbsp;                &quot;, company=&quot; + company +
+&nbsp;                &quot;, beginDate=&quot; + beginDate +
+&nbsp;                &quot;, endDate=&quot; + endDate +
+&nbsp;                &quot;, positionName=&#39;&quot; + positionName + &#39;\&#39;&#39; +
+&nbsp;                &quot;, salary=&quot; + salary +
+&nbsp;                &#39;}&#39;;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-04 20:47</div>
+</div>
+</body>
+</html>

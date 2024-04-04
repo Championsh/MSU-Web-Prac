@@ -21,13 +21,13 @@ public abstract class CommonDao<T> {
         return b;
     }
 
-    public T findById(Integer id){
-        Session session = HibernateSessionFactory.getSessionFactory().getCurrentSession();
-        Transaction t = session.beginTransaction();
-        T b = session.get(entityClass, id.longValue());
-        t.commit();
-        return b;
-    }
+//    public T findById(Integer id){
+//        Session session = HibernateSessionFactory.getSessionFactory().getCurrentSession();
+//        Transaction t = session.beginTransaction();
+//        T b = session.get(entityClass, id.longValue());
+//        t.commit();
+//        return b;
+//    }
 
     public List<T> findAll(){
         Session session = HibernateSessionFactory.getSessionFactory().getCurrentSession();
@@ -47,15 +47,15 @@ public abstract class CommonDao<T> {
         session.close();
     }
 
-    public void saveCollection(List<T> objs){
-        HibernateSessionFactory.getSessionFactory()
-                .inTransaction(session -> {
-                    for (T obj : objs) {
-                        session.persist(obj);
-                    }
-                    session.flush();
-                });
-    }
+//    public void saveCollection(List<T> objs){
+//        HibernateSessionFactory.getSessionFactory()
+//                .inTransaction(session -> {
+//                    for (T obj : objs) {
+//                        session.persist(obj);
+//                    }
+//                    session.flush();
+//                });
+//    }
 
     public void update(T obj){
         HibernateSessionFactory.getSessionFactory()

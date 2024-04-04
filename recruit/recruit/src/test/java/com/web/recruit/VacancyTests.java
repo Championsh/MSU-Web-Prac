@@ -80,6 +80,23 @@ public class VacancyTests {
 
         Assertions.assertEquals(1, findVacancyResumes.size());
         Assertions.assertEquals(2, findVacancyResumes.getFirst().getResumeId());
+
+        String vacancyName = "Директор по развитию";
+        String requirements = "Продвинутое владение Word; Желание рисовать плакаты";
+        Long salary = 5500000L;
+
+        Vacancy tmp_vacancy = new Vacancy(company, vacancyName, salary, requirements);
+        VacancyService VacancyService = new VacancyService();
+        VacancyService.save(tmp_vacancy);
+        Vacancy checK_vacancy = VacancyService.findById(tmp_vacancy.getVacancyId());
+        Assertions.assertEquals(tmp_vacancy, checK_vacancy);
+
+        findVacancyResumes = vacancyService.findVacancyResumes(tmp_vacancy);
+        Assertions.assertEquals(0, findVacancyResumes.size());
+
+        VacancyService.deleteById(tmp_vacancy.getVacancyId());
+        checK_vacancy = VacancyService.findById(tmp_vacancy.getVacancyId());
+        Assertions.assertNull(checK_vacancy);
     }
 
     @Test

@@ -12,7 +12,7 @@ public class Applicant {
     @Column(name = "applicant_id")
     private Long applicantId;
 
-    @ManyToOne(targetEntity = Auth.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Auth.class, cascade = CascadeType.MERGE)
     @JoinColumn(name = "auth_id")
     private Auth auth;
 
@@ -33,16 +33,16 @@ public class Applicant {
     private Boolean status;
 
 
-    @OneToMany(mappedBy = "applicant", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "applicant", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Experience> experiences = new ArrayList<>();
 
-    @OneToMany(mappedBy = "applicant", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "applicant", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Education> educations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "applicant", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "applicant", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Resume> resumes = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "applicant_company",
             joinColumns = { @JoinColumn(name = "company_id") },

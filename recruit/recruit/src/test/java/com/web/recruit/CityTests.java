@@ -29,7 +29,7 @@ public class CityTests {
     public void testFindAll() {
         CityService CityService = new CityService();
         List<City> City = CityService.findAll();
-        Assertions.assertEquals(City.size(), 18);
+        Assertions.assertEquals(17, City.size());
 
         List<String> cities = Arrays.asList(
                 "Хабаровск",

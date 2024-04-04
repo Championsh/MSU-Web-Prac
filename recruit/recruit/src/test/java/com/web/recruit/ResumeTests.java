@@ -94,6 +94,25 @@ public class ResumeTests {
 
         Assertions.assertEquals(1, findResumeVacancies.size());
         Assertions.assertEquals(2, findResumeVacancies.getFirst().getVacancyId());
+
+        String desiredPosition = "Директор по развитию";
+        Long salary = 550000L;
+        ApplicantService ApplicantService = new ApplicantService();
+        Applicant Applicant = ApplicantService.findById(2L);
+
+        Resume tmp_resume = new Resume(Applicant, desiredPosition, salary);
+        ResumeService ResumeService = new ResumeService();
+        ResumeService.save(tmp_resume);
+        Resume checK_resume = ResumeService.findById(tmp_resume.getResumeId());
+        Assertions.assertEquals(tmp_resume, checK_resume);
+
+        findResumeVacancies = resumeService.findResumeVacancies(tmp_resume);
+        Assertions.assertEquals(0, findResumeVacancies.size());
+
+        ResumeService.deleteById(tmp_resume.getResumeId());
+        checK_resume = ResumeService.findById(tmp_resume.getResumeId());
+        Assertions.assertNull(checK_resume);
+
     }
 
     @Test
@@ -130,13 +149,13 @@ public class ResumeTests {
         List<Resume> resumes = ResumeService.resumeFilter(null, null, null, null, null, null, null, null, null);
         Assertions.assertEquals(2, resumes.size());
 
-        resumes = ResumeService.resumeFilter(desiredPositions,  null, 10000L, 1000000L, Positions, edLevels, institutes, faculties, cities);
+        resumes = ResumeService.resumeFilter(desiredPositions,  null, 10000L, 1000000L, Positions, null, institutes, faculties, cities);
         Assertions.assertEquals(1, resumes.size());
 
         resumes = ResumeService.resumeFilter(desiredPositions, null, 10000L, 1000000L, null, null, null, null, null);
         Assertions.assertEquals(2, resumes.size());
 
-        resumes = ResumeService.resumeFilter(desiredPositions, Companies, 10000L, 1000000L,  Positions, edLevels, institutes, faculties, null);
+        resumes = ResumeService.resumeFilter(null, Companies, null, null,  null, null, null, faculties, null);
         Assertions.assertEquals(1, resumes.size());
 
         cities = new ArrayList<>();

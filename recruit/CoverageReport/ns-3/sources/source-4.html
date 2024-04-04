@@ -1,0 +1,220 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1251"> 
+  <title>Coverage Report > Auth</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.web.recruit.models</a>
+</div>
+
+<h1>Coverage Summary for Class: Auth (com.web.recruit.models)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Auth</td>
+<td class="coverageStat">
+  <span class="percent">
+    64,3%
+  </span>
+  <span class="absValue">
+    (9/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80,8%
+  </span>
+  <span class="absValue">
+    (21/26)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Auth$HibernateInstantiator$Zvw7Gr6S</td>
+  </tr>
+  <tr>
+    <td class="name">Auth$HibernateProxy$h3iutIuZ</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    64,3%
+  </span>
+  <span class="absValue">
+    (9/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80,8%
+  </span>
+  <span class="absValue">
+    (21/26)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.web.recruit.models;
+&nbsp;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import org.hibernate.annotations.JdbcTypeCode;
+&nbsp;import org.hibernate.annotations.Type;
+&nbsp;import org.hibernate.type.SqlTypes;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table (name = &quot;auth&quot;, schema = &quot;web&quot;)
+&nbsp;public class Auth {
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    @Column(name = &quot;auth_id&quot;)
+&nbsp;    private Long authId;
+&nbsp;
+&nbsp;    @Column(name = &quot;mail&quot;)
+&nbsp;    private String mail;
+&nbsp;
+&nbsp;    @Column(name = &quot;pwd&quot;)
+&nbsp;    private String password;
+&nbsp;
+&nbsp;//    @Convert(converter = RoleNameConverter.class)
+&nbsp;    @Column(name = &quot;auth_role&quot;)
+&nbsp;    @Enumerated(EnumType.STRING)
+&nbsp;    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+&nbsp;    private RoleName authRole;
+&nbsp;
+<b class="fc">&nbsp;    public Auth() {</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Auth(String mail, String password, String authRole) {</b>
+<b class="fc">&nbsp;        this.mail = mail;</b>
+<b class="fc">&nbsp;        this.password = password;</b>
+<b class="fc">&nbsp;        this.authRole = RoleName.valueOf(authRole.toLowerCase());</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Auth(String mail, String password, RoleName authRole) {</b>
+<b class="fc">&nbsp;        this.mail = mail;</b>
+<b class="fc">&nbsp;        this.password = password;</b>
+<b class="fc">&nbsp;        this.authRole = authRole;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Long getAuthId() {
+<b class="fc">&nbsp;        return authId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAuthId(Long authId) {
+<b class="nc">&nbsp;        this.authId = authId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getMail() {
+<b class="fc">&nbsp;        return mail;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setMail(String mail) {
+<b class="nc">&nbsp;        this.mail = mail;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPassword() {
+<b class="fc">&nbsp;        return password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPassword(String password) {
+<b class="nc">&nbsp;        this.password = password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public RoleName getAuthRole() {
+<b class="fc">&nbsp;        return authRole;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAuthRole(RoleName authRole) {
+<b class="fc">&nbsp;        this.authRole = authRole;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object o) {
+<b class="fc">&nbsp;        if (this == o) return true;</b>
+<b class="fc">&nbsp;        if (!(o instanceof Auth)) return false;</b>
+<b class="fc">&nbsp;        Auth auth = (Auth) o;</b>
+<b class="fc">&nbsp;        return Objects.equals(getAuthId(), auth.getAuthId()) &amp;&amp;</b>
+<b class="fc">&nbsp;                Objects.equals(getMail(), auth.getMail()) &amp;&amp;</b>
+<b class="fc">&nbsp;                Objects.equals(getPassword(), auth.getPassword()) &amp;&amp;</b>
+<b class="fc">&nbsp;                getAuthRole() == auth.getAuthRole();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="nc">&nbsp;        return Objects.hash(getAuthId(), getMail(), getPassword(), getAuthRole());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;models.Auth{&quot; +</b>
+&nbsp;                &quot;authId=&quot; + authId +
+&nbsp;                &quot;, mail=&#39;&quot; + mail + &#39;\&#39;&#39; +
+&nbsp;                &quot;, password=&#39;&quot; + password + &#39;\&#39;&#39; +
+&nbsp;                &quot;, authRole=&#39;&quot; + authRole + &#39;\&#39;&#39; +
+&nbsp;                &#39;}&#39;;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-04 20:47</div>
+</div>
+</body>
+</html>

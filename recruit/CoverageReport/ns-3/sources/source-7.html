@@ -1,0 +1,180 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1251"> 
+  <title>Coverage Report > Edlevel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.web.recruit.models</a>
+</div>
+
+<h1>Coverage Summary for Class: Edlevel (com.web.recruit.models)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Edlevel</td>
+<td class="coverageStat">
+  <span class="percent">
+    62,5%
+  </span>
+  <span class="absValue">
+    (5/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    76,9%
+  </span>
+  <span class="absValue">
+    (10/13)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Edlevel$HibernateInstantiator$7ODR01Xt</td>
+  </tr>
+  <tr>
+    <td class="name">Edlevel$HibernateProxy$wAkHAtrj</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    62,5%
+  </span>
+  <span class="absValue">
+    (5/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    76,9%
+  </span>
+  <span class="absValue">
+    (10/13)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.web.recruit.models;
+&nbsp;
+&nbsp;import jakarta.persistence.*;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;edlevel&quot;, schema = &quot;web&quot;)
+&nbsp;public class Edlevel {
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    @Column(name = &quot;edlevel_id&quot;)
+&nbsp;    private Long edlevelId;
+&nbsp;
+&nbsp;    @Column(name = &quot;edlevel_name&quot;)
+&nbsp;    private String edlevelName;
+&nbsp;
+<b class="fc">&nbsp;    public Edlevel() {</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Edlevel(String edlevelName) {</b>
+<b class="fc">&nbsp;        this.edlevelName = edlevelName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Long getEdlevelId() {
+<b class="fc">&nbsp;        return edlevelId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setEdlevelId(Long edlevelId) {
+<b class="nc">&nbsp;        this.edlevelId = edlevelId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getEdlevelName() {
+<b class="fc">&nbsp;        return edlevelName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setEdlevelName(String edlevelName) {
+<b class="nc">&nbsp;        this.edlevelName = edlevelName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object o) {
+<b class="fc">&nbsp;        if (this == o) return true;</b>
+<b class="fc">&nbsp;        if (!(o instanceof Edlevel)) return false;</b>
+<b class="fc">&nbsp;        Edlevel edlevel = (Edlevel) o;</b>
+<b class="fc">&nbsp;        return Objects.equals(getEdlevelId(), edlevel.getEdlevelId()) &amp;&amp;</b>
+<b class="fc">&nbsp;                Objects.equals(getEdlevelName(), edlevel.getEdlevelName());</b>
+&nbsp;    }
+&nbsp;//
+&nbsp;//    @Override
+&nbsp;//    public int hashCode() {
+&nbsp;//        return Objects.hash(getEdlevelId(), getEdlevelName());
+&nbsp;//    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;Edlevel{&quot; +</b>
+&nbsp;                &quot;edlevelId=&quot; + edlevelId +
+&nbsp;                &quot;, edlevelName=&#39;&quot; + edlevelName + &#39;\&#39;&#39; +
+&nbsp;                &#39;}&#39;;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-04 20:47</div>
+</div>
+</body>
+</html>

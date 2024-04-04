@@ -22,7 +22,7 @@ public class VacancyDao extends CommonDao<Vacancy> {
             Transaction t = session.beginTransaction();
             StringBuilder queryString = new StringBuilder("SELECT r FROM Resume r ");
             queryString.append("WHERE r.desiredPosition = :vacancyName ");
-            if (obj.getSalary() != null) queryString.append("AND r.desiredSalary >= :salary ");
+            if (obj.getSalary() != null) queryString.append("AND r.desiredSalary <= :salary ");
 
             TypedQuery<Resume> query = session.createQuery(queryString.toString(), Resume.class);
 

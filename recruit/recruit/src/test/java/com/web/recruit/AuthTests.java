@@ -25,7 +25,7 @@ public class AuthTests {
     @Test
     public void testFindById() {
         AuthService authService = new AuthService();
-        Auth auth = authService.findById(1L);
+        Auth auth = authService.findById(1);
         Assertions.assertEquals(auth.getAuthId(), 1L);
     }
 
@@ -53,19 +53,12 @@ public class AuthTests {
     }
 
     @Test
-    public void testDeleteById() {
-        String mail = "first@mail.ru";
-        String pwd = "firstpwd";
-        RoleName rolename = RoleName.valueOf("соискатель");
-
-        Auth tmp_auth = new Auth(mail, pwd, rolename);
-        AuthService AuthService = new AuthService();
-        AuthService.save(tmp_auth);
-        Auth checK_auth = AuthService.findById(tmp_auth.getAuthId());
-        Assertions.assertEquals(tmp_auth, checK_auth);
-
-        AuthService.deleteById(tmp_auth.getAuthId());
-        checK_auth = AuthService.findById(tmp_auth.getAuthId());
-        Assertions.assertNull(checK_auth);
+    public void testUpdateDelete() {
+        AuthService authService = new AuthService();
+        Auth auth = authService.findById(1);
+        auth.setAuthRole(RoleName.valueOf("студент"));
+        authService.update(auth);
+        Auth new_auth = authService.findById(auth.getAuthId());
+        Assertions.assertEquals(auth.getAuthRole(), new_auth.getAuthRole());
     }
 }

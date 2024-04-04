@@ -16,13 +16,13 @@ public class Resume {
     @JoinColumn(name = "applicant_id")
     private Applicant applicant;
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<ExperienceResume> experienceResumes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<EducationResume> educationResumes = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "experience_resume",
             joinColumns = { @JoinColumn(name = "experience_id") },
@@ -30,7 +30,7 @@ public class Resume {
     )
     Set<Experience> experiences = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "education_resume",
             joinColumns = { @JoinColumn(name = "education_id") },

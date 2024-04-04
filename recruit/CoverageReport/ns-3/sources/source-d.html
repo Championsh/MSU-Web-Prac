@@ -1,0 +1,161 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1251"> 
+  <title>Coverage Report > ExperienceResumeId</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.web.recruit.models</a>
+</div>
+
+<h1>Coverage Summary for Class: ExperienceResumeId (com.web.recruit.models)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ExperienceResumeId</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    11,1%
+  </span>
+  <span class="absValue">
+    (1/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6,7%
+  </span>
+  <span class="absValue">
+    (1/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.web.recruit.models;
+&nbsp;
+&nbsp;import java.io.Serializable;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;public class ExperienceResumeId implements Serializable {
+&nbsp;
+&nbsp;    private Resume resume;
+&nbsp;
+&nbsp;    private Experience experience;
+&nbsp;
+<b class="fc">&nbsp;    public ExperienceResumeId() {</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public ExperienceResumeId(Resume resume, Experience experience) {</b>
+<b class="nc">&nbsp;        this.resume = resume;</b>
+<b class="nc">&nbsp;        this.experience = experience;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Resume getResume() {
+<b class="nc">&nbsp;        return resume;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setResume(Resume resume) {
+<b class="nc">&nbsp;        this.resume = resume;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Experience getExperience() {
+<b class="nc">&nbsp;        return experience;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setExperience(Experience experience) {
+<b class="nc">&nbsp;        this.experience = experience;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object o) {
+<b class="nc">&nbsp;        if (this == o) return true;</b>
+<b class="nc">&nbsp;        if (!(o instanceof ExperienceResumeId)) return false;</b>
+<b class="nc">&nbsp;        ExperienceResumeId that = (ExperienceResumeId) o;</b>
+<b class="nc">&nbsp;        return Objects.equals(getResume(), that.getResume()) &amp;&amp;</b>
+<b class="nc">&nbsp;                Objects.equals(getExperience(), that.getExperience());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="nc">&nbsp;        return Objects.hash(getResume(), getExperience());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;ExperienceResumeId{&quot; +</b>
+&nbsp;                &quot;resume=&quot; + resume +
+&nbsp;                &quot;, experience=&quot; + experience +
+&nbsp;                &#39;}&#39;;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-04 20:47</div>
+</div>
+</body>
+</html>

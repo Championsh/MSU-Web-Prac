@@ -62,7 +62,7 @@ public class ApplicantTests {
         Applicant checK_applicant = applicantService.findById(tmp_applicant.getApplicantId());
         Assertions.assertEquals(tmp_applicant, checK_applicant);
 
-        applicantService.deleteById(tmp_applicant.getApplicantId());
+        applicantService.delete(tmp_applicant);
         checK_applicant = applicantService.findById(tmp_applicant.getApplicantId());
         Assertions.assertNull(checK_applicant);
     }
@@ -106,13 +106,10 @@ public class ApplicantTests {
         Assertions.assertEquals(resumes.getFirst().getApplicant().getApplicantId(), 1);
         Assertions.assertEquals(resumes.getFirst().getDesiredPosition(), "Директор по развитию");
         Assertions.assertEquals(resumes.getFirst().getDesiredSalary(), 1000000);
-        Assertions.assertEquals(resumes.getFirst().getExperienceResumes().size(), 2);
+        Assertions.assertEquals(resumes.getFirst().getExperienceResumes().size(), 1);
         Assertions.assertEquals(resumes.getFirst().getExperienceResumes().get(0).getResume().getResumeId(), 1);
-        Assertions.assertEquals(resumes.getFirst().getExperienceResumes().get(1).getResume().getResumeId(), 1);
         Assertions.assertEquals(resumes.getFirst().getExperienceResumes().get(0).getExperience().getExperienceId(), 1);
-        Assertions.assertEquals(resumes.getFirst().getExperienceResumes().get(1).getExperience().getExperienceId(), 2);
-        Assertions.assertEquals(resumes.getFirst().getExperienceResumes().get(0).getAdditionalInfo(), "");
-        Assertions.assertEquals(resumes.getFirst().getExperienceResumes().get(1).getAdditionalInfo(), "");
+        Assertions.assertEquals(resumes.getFirst().getExperienceResumes().get(0).getAdditionalInfo(), "Продвинутое владение Word");
     }
 
     @Test

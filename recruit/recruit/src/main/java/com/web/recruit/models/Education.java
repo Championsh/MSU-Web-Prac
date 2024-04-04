@@ -18,7 +18,7 @@ public class Education {
     @JoinColumn(name = "applicant_id")
     private Applicant applicant;
 
-    @ManyToOne(targetEntity = Edlevel.class, cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Edlevel.class, cascade = CascadeType.MERGE)
     @JoinColumn(name = "edlevel_id")
     private Edlevel edlevel;
 
