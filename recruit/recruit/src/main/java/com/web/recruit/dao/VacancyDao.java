@@ -62,13 +62,13 @@ public class VacancyDao extends CommonDao<Vacancy> {
         try (Session session = HibernateSessionFactory.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             StringBuilder queryString = new StringBuilder("SELECT DISTINCT v FROM Vacancy v");
-            if (companies != null && !companies.isEmpty())
-                queryString.append(" LEFT JOIN v.company c");
+//            if (companies != null && !companies.isEmpty())
+//                queryString.append(" LEFT JOIN v.company c");
 
             queryString.append(" WHERE TRUE");
 
-            if (vacancyNames != null && !vacancyNames.isEmpty()) queryString.append(" AND v.position IN :vacancyNames");
-            if (companies != null && !companies.isEmpty()) queryString.append(" AND c.company IN :companies");
+            if (vacancyNames != null && !vacancyNames.isEmpty()) queryString.append(" AND v.vacancyName IN :vacancyNames");
+            if (companies != null && !companies.isEmpty()) queryString.append(" AND v.company IN :companies");
             if (minSalary != null) queryString.append(" AND v.salary >= :minSalary");
             if (maxSalary != null) queryString.append(" AND v.salary <= :maxSalary");
 

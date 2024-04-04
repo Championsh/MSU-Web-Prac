@@ -32,6 +32,14 @@ public class Vacancy {
     public Vacancy() {
     }
 
+    public Vacancy(Company company, String vacancyName, Long salary, String requirements) {
+        this.company = company;
+        this.vacancyName = vacancyName;
+        this.salary = salary;
+        this.requirements = requirements;
+        this.additionalInfo = "";
+    }
+
     public Vacancy(Company company, String vacancyName, Long salary, String requirements, String additionalInfo) {
         this.company = company;
         this.vacancyName = vacancyName;

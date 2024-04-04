@@ -23,8 +23,8 @@ public class ResumeService extends CommonService<Resume, ResumeDao> {
         return dao.findResumeVacancies(obj);
     }
 
-    public List<Resume> resumeFilter(List<String> desiredPositions, List<Company> companies, Long minSalary, Long maxSalary, List<String> positions, List<Edlevel> edLevels, List<String> institutes, List<String> faculties) {
-        return dao.resumeFilter(desiredPositions, companies, minSalary, maxSalary, positions, edLevels, institutes, faculties);
+    public List<Resume> resumeFilter(List<String> desiredPositions, List<Company> companies, Long minSalary, Long maxSalary, List<String> positions, List<Edlevel> edLevels, List<String> institutes, List<String> faculties, List<City> cities) {
+        return dao.resumeFilter(desiredPositions, companies, minSalary, maxSalary, positions, edLevels, institutes, faculties, cities);
     }
 
 }

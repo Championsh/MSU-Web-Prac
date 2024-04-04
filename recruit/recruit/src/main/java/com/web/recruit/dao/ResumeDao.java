@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.StringJoiner;
 
 import com.web.recruit.utils.HibernateSessionFactory;
@@ -66,7 +67,7 @@ public class ResumeDao extends CommonDao<Resume> {
         }
     }
 
-    public List<Resume> resumeFilter(List<String> desiredPositions, List<Company> companies, Long minSalary, Long maxSalary, List<String> positions, List<Edlevel> edLevels, List<String> institutes, List<String> faculties) {
+    public List<Resume> resumeFilter(List<String> desiredPositions, List<Company> companies, Long minSalary, Long maxSalary, List<String> positions, List<Edlevel> edLevels, List<String> institutes, List<String> faculties, List<City> cities) {
         try (Session session = HibernateSessionFactory.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
             StringBuilder queryString = new StringBuilder("SELECT DISTINCT r FROM Resume r");
@@ -74,30 +75,35 @@ public class ResumeDao extends CommonDao<Resume> {
                 (companies != null && !companies.isEmpty()) ||
                 (minSalary != null) ||
                 (maxSalary != null)) {
-                queryString.append(" LEFT JOIN r.experienceResumes ex");
+                queryString.append(" LEFT JOIN r.experiences ex");
             }
 
             if ((edLevels != null && !edLevels.isEmpty()) ||
                 (institutes != null && !institutes.isEmpty()) ||
                 (faculties != null && !faculties.isEmpty())) {
-                queryString.append(" LEFT JOIN r.educationResumes ed");
+                queryString.append(" LEFT JOIN r.educations ed");
             }
 
             queryString.append(" WHERE TRUE");
 
             if (positions != null && !positions.isEmpty()) queryString.append(" AND ex.position IN :positions");
-            if (companies != null && !companies.isEmpty()) queryString.append(" AND ex.company IN :companies");
+//            if (companies != null && !companies.isEmpty()) queryString.append(" AND ex.company IN :companies");
             if (minSalary != null) queryString.append(" AND ex.salary >= :minSalary");
             if (maxSalary != null) queryString.append(" AND ex.salary <= :maxSalary");
             if (desiredPositions != null && !desiredPositions.isEmpty()) queryString.append(" AND r.desiredPosition IN :desiredPositions");
-            if (edLevels != null && !edLevels.isEmpty()) queryString.append(" AND ed.edLevel IN :edLevels");
+            if (edLevels != null && !edLevels.isEmpty()) queryString.append(" AND ed.edlevel IN :edLevels");
             if (institutes != null && !institutes.isEmpty()) queryString.append(" AND ed.institute IN :institutes");
             if (faculties != null && !faculties.isEmpty()) queryString.append(" AND ed.faculty IN :faculties");
 
             TypedQuery<Resume> query = session.createQuery(queryString.toString(), Resume.class);
 
             if (positions != null && !positions.isEmpty()) query.setParameter("positions", positions);
-            if (companies != null && !companies.isEmpty()) query.setParameter("companies", companies);
+
+            List<String> company_names = new ArrayList<>();
+            if (companies != null && !companies.isEmpty()) {
+                for (Company company: companies) company_names.add(company.getCompanyName());
+//                query.setParameter("companies", company_names);
+            }
             if (minSalary != null) query.setParameter("minSalary", minSalary);
             if (maxSalary != null) query.setParameter("maxSalary", maxSalary);
             if (desiredPositions != null && !desiredPositions.isEmpty()) query.setParameter("desiredPositions", desiredPositions);
@@ -105,8 +111,27 @@ public class ResumeDao extends CommonDao<Resume> {
             if (institutes != null && !institutes.isEmpty()) query.setParameter("institutes", institutes);
             if (faculties != null && !faculties.isEmpty()) query.setParameter("faculties", faculties);
 
-            List<Resume> res = query.getResultList();
+            List<Resume> resumes = query.getResultList();
+            List<Resume> res = new ArrayList<>();
+
+            if (cities != null && !cities.isEmpty()) {
+                for (Resume resume: resumes) {
+                    if (cities.contains(resume.getApplicant().getCity()))
+                        res.add(resume);
+                }
+            } else {
+                res = resumes;
+            }
+
             t.commit();
+
+            List<String> names = new ArrayList<>();
+            for (Resume resume: res) {
+                Set<Experience> exps = resume.getExperiences();
+
+                for (Experience exp: exps) names.add(exp.getCompany());
+            }
+
             return res;
         }
     }

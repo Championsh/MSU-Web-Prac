@@ -59,7 +59,7 @@ VALUES
 INSERT INTO experience_resume(resume_id, experience_id, additional_info)
 VALUES
 (1, 1, 'Продвинутое владение Word'),
-(1, 2, ''),
+(1, 3, ''),
 (2, 2, 'Умение работать в команде');
 
 INSERT INTO education_resume(resume_id, education_id)

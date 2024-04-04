@@ -100,18 +100,23 @@ public class ResumeTests {
     public void testResumeFilter() {
         ResumeService ResumeService = new ResumeService();
         CompanyService CompanyService = new CompanyService();
+        EdlevelService EdlevelService = new EdlevelService();
+        CityService CityService = new CityService();
+
         List<Company> Companies = new ArrayList<>();
         Companies.add(CompanyService.findById(1));
         Companies.add(CompanyService.findById(2));
 
         List<String> desiredPositions = new ArrayList<>();
         desiredPositions.add("Директор по развитию");
+        desiredPositions.add("Руководитель отдела аналитики");
 
         List<String> Positions = new ArrayList<>();
         Positions.add("Мидл Python разработчик");
+        Positions.add("Руководитель отдела поставок");
 
         List<Edlevel> edLevels = new ArrayList<>();
-        edLevels.add(new Edlevel("Бакалавриат"));
+        edLevels.add(EdlevelService.findById(1));
 
         List<String> institutes = new ArrayList<>();
         institutes.add("МГУ им М.В. Ломоносова");
@@ -119,10 +124,29 @@ public class ResumeTests {
         List<String> faculties = new ArrayList<>();
         faculties.add("ВМК");
 
-        List<Resume> resumes = ResumeService.resumeFilter(null, null, null, null, null, null, null, null);
-        Assertions.assertEquals(resumes.size(), 2);
+        List<City> cities = new ArrayList<>();
+        cities.add(CityService.findById(2));
 
-        resumes = ResumeService.resumeFilter(desiredPositions, Companies, 10000L, 1000000L, Positions, edLevels, institutes, faculties);
-        Assertions.assertEquals(resumes.size(), 1);
+        List<Resume> resumes = ResumeService.resumeFilter(null, null, null, null, null, null, null, null, null);
+        Assertions.assertEquals(2, resumes.size());
+
+        resumes = ResumeService.resumeFilter(desiredPositions,  null, 10000L, 1000000L, Positions, edLevels, institutes, faculties, cities);
+        Assertions.assertEquals(1, resumes.size());
+
+        resumes = ResumeService.resumeFilter(desiredPositions, null, 10000L, 1000000L, null, null, null, null, null);
+        Assertions.assertEquals(2, resumes.size());
+
+        resumes = ResumeService.resumeFilter(desiredPositions, Companies, 10000L, 1000000L,  Positions, edLevels, institutes, faculties, null);
+        Assertions.assertEquals(1, resumes.size());
+
+        cities = new ArrayList<>();
+        cities.add(CityService.findById(7));
+        resumes = ResumeService.resumeFilter(desiredPositions, null, 10000L, 1000000L,  Positions, edLevels, institutes, faculties, cities);
+        Assertions.assertEquals(0, resumes.size());
+
+        faculties = new ArrayList<>();
+        faculties.add("ВМиК");
+        resumes = ResumeService.resumeFilter(desiredPositions, null, 10000L, 1000000L,  Positions, edLevels, institutes, faculties, null);
+        Assertions.assertEquals(0, resumes.size());
     }
 }
