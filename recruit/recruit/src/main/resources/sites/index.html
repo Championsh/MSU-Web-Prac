@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кадровое Агенство</title>
+    <style>
+        body {
+            font-family: Montserrat, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 300px;
+            padding: 20px;
+            background-color: #ffffff;
+            margin-top: 100px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: block;
+        }
+
+        .error-mes {
+            margin-top: 20px;
+            color: red;
+            text-align: center;
+        }
+
+        body {
+            font-family: Montserrat, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 40px;
+            min-height: 600px;
+        }
+
+        /*header a {*/
+        /*    background-color: navy;*/
+        /*    color: black;*/
+        /*    border: none;*/
+        /*    padding: 0 20px;*/
+        /*    cursor: pointer;*/
+        /*    font-size: 20px;*/
+        /*}*/
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+
+    </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Кадровое Агентсво</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a class="nav-link" href="#"> Главная <span class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Разместить резюме</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Подбор вакансий</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Войти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <h2>Войти</h2>
+            <form th:action="@{/login}" method="get" class="form-group">
+                <input type="text" name="mail" placeholder="Mail" required>
+                <input type="text" name="password" placeholder="Password" required>
+                <button type="submit" class="button-find btn btn-primary btn-block">Войти</button>
+            </form>
+        </div>
+        <div class="error-mes" th:if="${isBadTry}">
+            Invalid credentials.
+        </div>
+    </main>
+</body>
+</html>

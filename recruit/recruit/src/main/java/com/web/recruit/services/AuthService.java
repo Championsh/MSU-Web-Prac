@@ -8,4 +8,8 @@ public class AuthService extends CommonService<Auth, AuthDao> {
     public AuthService(){
         super(new AuthDao());
     }
+
+    public Auth validateAuth(String mail, String password) {
+        return dao.validateAuth(mail, password);
+    }
 }

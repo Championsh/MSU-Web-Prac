@@ -36,41 +36,31 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>3.1.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring6</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.19.1</version>
+		</dependency>
 	</dependencies>
-
-<!--	<build>-->
-<!--		<plugins>-->
-<!--			<plugin>-->
-<!--				<groupId>org.springframework.boot</groupId>-->
-<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--			</plugin>-->
-
-<!--			&lt;!&ndash; https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin &ndash;&gt;-->
-<!--			<plugin>-->
-<!--				<groupId>org.jacoco</groupId>-->
-<!--				<artifactId>jacoco-maven-plugin</artifactId>-->
-<!--				<version>0.8.7</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<goals>-->
-<!--							<goal>prepare-agent</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--					<execution>-->
-<!--						<id>report</id>-->
-<!--						<phase>prepare-package</phase>-->
-<!--						<goals>-->
-<!--							<goal>report</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
-
-<!--		</plugins>-->
-<!--	</build>-->
-
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -96,19 +86,11 @@
 							<goal>report</goal>
 						</goals>
 						<configuration>
-							<!-- Sets the path to the file which contains the execution data. -->
-
 							<dataFile>target/jacoco.exec</dataFile>
-							<!-- Sets the output directory for the code coverage report. -->
 							<outputDirectory>target/my-reports</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
-<!--				<configuration>-->
-<!--					<systemPropertyVariables>-->
-<!--						<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>-->
-<!--					</systemPropertyVariables>-->
-<!--				</configuration>-->
 			</plugin>
 		</plugins>
 	</build>

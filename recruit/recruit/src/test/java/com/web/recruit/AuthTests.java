@@ -61,4 +61,11 @@ public class AuthTests {
         Auth new_auth = authService.findById(auth.getAuthId());
         Assertions.assertEquals(auth.getAuthRole(), new_auth.getAuthRole());
     }
+
+    @Test
+    public void testValidate() {
+        AuthService authService = new AuthService();
+        Auth auth = authService.validateAuth("third@mail.ru", "thirdpwd");
+        Assertions.assertNotEquals(null, auth);
+    }
 }
