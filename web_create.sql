@@ -2,8 +2,8 @@ DROP SCHEMA IF EXISTS web CASCADE;
 CREATE SCHEMA web;
 SET search_path TO web;
 
-DROP TYPE IF EXISTS role_name CASCADE;
-CREATE TYPE role_name AS ENUM('соискатель', 'студент', 'работодатель');
+-- DROP TYPE IF EXISTS role_name CASCADE;
+-- CREATE TYPE role_name AS ENUM('соискатель', 'студент', 'работодатель');
 
 DROP DOMAIN IF EXISTS email;
 DROP EXTENSION IF EXISTS citext;
@@ -15,7 +15,7 @@ CREATE TABLE auth (
 	mail email NOT NULL,
 	pwd text NOT NULL,
     auth_id BIGSERIAL PRIMARY KEY,
-    auth_role role_name NOT NULL
+    auth_role text NOT NULL
 );
 
 CREATE TABLE city (

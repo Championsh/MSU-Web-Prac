@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кадровое Агенство</title>
+    <style>
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 15px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: block;
+        }
+        .error-mes {
+            margin-top: 20px;
+            color: red;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+        .close {
+            position: relative;
+            top: 5px; /* Adjust this value as needed to position the close button */
+            right: 5px; /* Adjust this value as needed to position the close button */
+            cursor: pointer;
+            padding: 5px;
+            background-color: #f00; /* Background color for the close button */
+            color: #fff; /* Text color */
+            border: none;
+        }
+        .modal-name h1{
+            font-size:30px;
+            color:#676363;
+        }
+        .nav-item.active {
+            background-color: #007bff; /* Change color as needed */
+        }
+        .nav-item.active a {
+            color: #fff; /* Change color as needed for active menu text */
+        }
+        .modal-name button{
+            position: absolute;
+            top:-50px;
+            right:20px;
+            font-size:30px;
+        }
+        .form-input button{
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .link-part {
+            position: relative;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            width: 80%; /* Adjust width as needed */
+            height: 80%; /* Adjust height as needed */
+            padding: 10px; /* Add padding around the content within inner-div */
+            text-align: center; /* Center text horizontally */
+        }
+        .inner-div p {
+            margin: 10px; /* Add margin to the paragraphs within inner-div */
+        }
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px; /* Adjust padding as needed */
+            border: 1px solid #ccc; /* Adjust border styles as needed */
+        }
+        .dropdown {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            margin-right: 10px;
+            border-radius: 3px;
+            display: block;
+        }
+        .dropdown-toggle {
+            padding: 10px; /* Match the padding of the text input field */
+            width: 100%; /* Match the width of the text input field */
+            margin-bottom: 15px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: inline-block; /* Change the display property to inline-block */
+            cursor: pointer;
+            color: #333;
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+        .dropdown-toggle:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown-menu {
+            /* Match the width of the button */
+            min-width: 100%;
+        }
+        .dropdown-menu li {
+            display: block;
+        }
+        .dropdown-menu li a {
+            color: #333;
+            padding: 8px 12px; /* Match the padding of dropdown items */
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-menu li a:hover {
+            background-color: #f9f9f9;
+        }
+        .open-modal{
+            margin-top:100px !important;
+        }
+        .modal-content {
+            position: relative;
+        }
+        .modal-header {
+            position: relative;
+            text-align: center;
+        }
+        .modal-title {
+            margin: 0 auto;
+        }
+        .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            color: #000; /* Adjust as needed */
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+<div th:fragment="navbar">
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Кадровое Агенство</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/index}">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/post}">Разместить резюме</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/select}">Подбор вакансий</a></li>
+                    <li id="loginButton" class="nav-item"><a id="loginLink" class="nav-link" data-toggle="modal" data-bs-target="#loginModal" href="#loginModal" th:text="${loginMail} ? ${loginMail} : 'Войти'"></a></li>
+                </ul>
+            </div>
+        </nav>
+        <div id="loginModal" class="modal fade text-center">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Авторизация</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-input">
+                            <form id="loginForm" th:action="@{/login}" method="get" class="form-group">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="text" name="mail" class="form-control" placeholder="Почта" required>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="password" name="password" class="form-control" placeholder="Пароль" required>
+                                    </label>
+                                </div>
+                                <button type="submit" class="button-find btn btn-primary btn-block">Войти</button>
+                            </form>
+
+                            <form id="registrationForm" style="display: none;" th:action="@{/register}" method="get" class="form-group">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="text" name="mail" class="form-control" placeholder="Почта" required>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="password" name="password" class="form-control" placeholder="Пароль" required>
+                                    </label>
+                                </div>
+                                <input type="hidden" name="role" id="selectedRole" value="">
+                                <div class="dropdown" id="roleDropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Выберите роль
+                                    </button>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">Соискатель</a></li>
+                                        <li><a class="dropdown-item" href="#">Работодатель</a></li>
+                                        <li><a class="dropdown-item" href="#">Студент</a></li>
+                                    </ul>
+                                </div>
+                                <button type="submit" class="button-find btn btn-primary btn-block">Зарегистрироваться</button>
+                            </form>
+
+        <!--                    &lt;!&ndash; Forgot Password Form &ndash;&gt;-->
+        <!--                    <form id="forgotPasswordForm" style="display: none;">-->
+        <!--                        &lt;!&ndash; Add forgot password form fields here &ndash;&gt;-->
+        <!--                        <button type="submit" class="button-find btn btn-primary btn-block">Сбросить пароль</button>-->
+        <!--                    </form>-->
+                        </div>
+                        <div class="link-part">
+                            <a id="registerLink" class="link-part p" href="#">Зарегистрироваться</a>
+        <!--                    <a id="forgotPasswordLink" class="link-part p" href="#">Забыли пароль?</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function checkLoginModal() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const showLoginModal = urlParams.get('showLoginModal');
+
+                if (showLoginModal === 'true') {
+                    // $('#loginModal').modal({ backdrop: 'static', keyboard: false });
+                    $('#loginModal').modal('show');
+                }
+            }
+
+            $(document).ready(function() {
+                checkLoginModal();
+
+                $(".dropdown-item").click(function(){
+                    var selectedText = $(this).text();
+                    $(this).closest(".dropdown").find(".dropdown-toggle").text(selectedText);
+                    $("#selectedRole").val(selectedText);
+                    validateRole(selectedText);
+                });
+
+                // Switch to Registration Form
+                $("#registerLink").click(function() {
+                    $("#modalTitle").text("Регистрация");
+                    $("#loginForm").hide();
+                    $("#registrationForm").show();
+                    $("#forgotPasswordForm").hide();
+                });
+
+                $("#registrationForm").submit(function(event) {
+                    if ($("#selectedRole").val() === "") {
+                        event.preventDefault();
+                        alert("Please select a role!");
+                    } else {
+                        $("#roleDropdown").removeClass('show');
+                    }
+                });
+
+                function validateRole(selectedRole) {
+                    if (selectedRole !== "") {
+                        $("#roleDropdown").closest('.form-group').removeClass('has-error');
+                    } else {
+                        $("#roleDropdown").closest('.form-group').addClass('has-error');
+                    }
+                }
+
+                let currentPage = window.location.href;
+                let navbarMenu = document.getElementById("navbarMenu");
+                let navItems = navbarMenu.getElementsByClassName("nav-item");
+
+                for (let item of navItems) {
+                    let link = item.getElementsByTagName("a")[0];
+                    if (link.href === currentPage) {
+                        item.classList.add("active");
+                    }
+                }
+            });
+        </script>
+    </body>
+    <footer>
+        <p>Кадровое агентство</p>
+        <p>
+            <a th:href="@{/agreement}">Пользовательское соглашение</a>
+            <a th:href="@{/important}">Важная информация</a>
+        </p>
+    </footer>
+</div>
+</html>

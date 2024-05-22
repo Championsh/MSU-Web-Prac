@@ -112,11 +112,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    @Column(name = &quot;pwd&quot;)
 &nbsp;    private String password;
 &nbsp;
-&nbsp;//    @Convert(converter = RoleNameConverter.class)
+&nbsp;//    @Convert(converter = AuthRoleConverter.class)
 &nbsp;    @Column(name = &quot;auth_role&quot;)
 &nbsp;    @Enumerated(EnumType.STRING)
 &nbsp;    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-&nbsp;    private RoleName authRole;
+&nbsp;    private AuthRole authRole;
 &nbsp;
 <b class="fc">&nbsp;    public Auth() {</b>
 &nbsp;    }
@@ -124,10 +124,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;    public Auth(String mail, String password, String authRole) {</b>
 <b class="fc">&nbsp;        this.mail = mail;</b>
 <b class="fc">&nbsp;        this.password = password;</b>
-<b class="fc">&nbsp;        this.authRole = RoleName.valueOf(authRole.toLowerCase());</b>
+<b class="fc">&nbsp;        this.authRole = AuthRole.valueOf(authRole.toLowerCase());</b>
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public Auth(String mail, String password, RoleName authRole) {</b>
+<b class="fc">&nbsp;    public Auth(String mail, String password, AuthRole authRole) {</b>
 <b class="fc">&nbsp;        this.mail = mail;</b>
 <b class="fc">&nbsp;        this.password = password;</b>
 <b class="fc">&nbsp;        this.authRole = authRole;</b>
@@ -157,11 +157,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        this.password = password;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public RoleName getAuthRole() {
+&nbsp;    public AuthRole getAuthRole() {
 <b class="fc">&nbsp;        return authRole;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public void setAuthRole(RoleName authRole) {
+&nbsp;    public void setAuthRole(AuthRole authRole) {
 <b class="fc">&nbsp;        this.authRole = authRole;</b>
 &nbsp;    }
 &nbsp;

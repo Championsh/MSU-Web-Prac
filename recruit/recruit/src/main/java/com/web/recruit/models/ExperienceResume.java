@@ -11,7 +11,6 @@ import java.util.Objects;
 public class ExperienceResume {
 
     @Id
-
     @ManyToOne(targetEntity = Resume.class)
     @JoinColumn(name = "resume_id")
     private Resume resume;

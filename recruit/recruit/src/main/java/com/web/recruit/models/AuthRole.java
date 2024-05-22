@@ -1,5 +1,5 @@
 package com.web.recruit.models;
 
-public enum RoleName {
+public enum AuthRole {
     соискатель, студент, работодатель
 }

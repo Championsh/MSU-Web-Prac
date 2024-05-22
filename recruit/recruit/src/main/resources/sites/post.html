@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кадровое агентство</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+        }
+        .container {
+          max-width: 800px;
+          margin: 20px auto;
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+          text-align: center;
+        }
+        .section {
+          margin-top: 20px;
+        }
+        .btn {
+          display: inline-block;
+          padding: 8px 12px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+          text-decoration: none;
+          margin-right: 10px;
+        }
+        .btn:hover {
+          background-color: #0056b3;
+        }
+        .content {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .position {
+            font-weight: bold;
+        }
+        .dates {
+            font-style: italic;
+            color: #888;
+        }
+        .salary {
+            color: green;
+        }
+        .company {
+            font-size: 14px;
+            color: #555;
+        }
+        .level {
+            font-weight: bold;
+        }
+        .institute {
+            color: #333;
+        }
+        .faculty {
+            font-style: italic;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbarContainer"></div>
+
+    <div class="container" th:if="${applicant}">
+            <h1>Ваша информация</h1>
+            <div class="section">
+                <form action="/addResume" method="get">
+                    <h2>Резюме</h2>
+                    <button type="submit" class="btn" id="addResumeBtn">Создать резюме</button>
+                </form>
+                <form action="/resume" method="get">
+                    <ul id="resumeList">
+                        <th:block th:each="resume : ${resumes}">
+                            <div class="content">
+                                <p class="position" th:text="${resume.getDesiredPosition()}"></p>
+                                <p class="salary" th:text="${resume.getDesiredSalary()}"></p>
+                                <div>
+                                    <button type="submit" class="btn" name="deleteResumeBtn">Удалить</button>
+                                    <button type="submit" class="btn" name="changeResumeBtn">Изменить</button>
+                                    <button type="submit" class="btn" name="findVacanciesBtn">Подобрать</button>
+                                    <input type="hidden" name="resumeId" th:value="${resume.getResumeId()}" />
+                                </div>
+                            </div>
+                        </th:block>
+                    </ul>
+                </form>
+            </div>
+            <div class="section">
+                <form action="/addExperience" method="get">
+                    <h2>Опыт работы</h2>
+                    <button type="submit" class="btn" id="addExperienceBtn">Добавить опыт работы</button>
+                </form>
+                <form action="/experience" method="get">
+                    <ul id="experienceList">
+                        <th:block th:each="experience : ${experiences}">
+                            <div class="content">
+                                <p class="position" th:text="${experience.getPosition()}"></p>
+                                <p class="company" th:text="${experience.getCompany()}"></p>
+                                <p class="dates" th:text="${experience.getBeginDate()} + ' - ' + ${experience.getEndDate()}"></p>
+                                <p class="salary" th:text="${experience.getSalary()}"></p>
+                                <div>
+                                    <button type="submit" class="btn" name="deleteExperienceBtn">Удалить</button>
+                                    <button type="submit" class="btn" name="changeExperienceBtn">Изменить</button>
+                                    <input type="hidden" name="experienceId" th:value="${experience.getExperienceId()}" />
+                                </div>
+                            </div>
+                        </th:block>
+                    </ul>
+                </form>
+            </div>
+            <div class="section">
+                <form action="/addEducation" method="get">
+                    <h2>Образование</h2>
+                    <button type="submit" class="btn" id="addEducationBtn">Добавить образование</button>
+                </form>
+                <form action="/education" method="get">
+                    <ul id="educationList">
+                        <th:block th:each="education : ${educations}">
+                            <div class="content">
+                                <p class="level" th:text="${education.getEdlevel().getEdlevelName()}"></p>
+                                <p class="institute" th:text="${education.getInstitute()}"></p>
+                                <p class="faculty" th:text="${education.getFaculty()}"></p>
+                                <div>
+                                    <button type="submit" class="btn" name="deleteEducationBtn">Удалить</button>
+                                    <button type="submit" class="btn" name="changeEducationBtn">Изменить</button>
+                                    <input type="hidden" name="educationId" th:value="${education.getEducationId()}" />
+                                </div>
+                            </div>
+                        </th:block>
+                    </ul>
+                </form>
+            </div>
+    </div>
+
+    <div class="container" th:if="${company}">
+        <h1>Информация о Вашей компании</h1>
+        <div class="section">
+            <form action="/addVacancy" method="get">
+                <h2>Вакансии</h2>
+                <button type="submit" class="btn" id="addVacancyBtn">Создать вакансию</button>
+            </form>
+            <form action="/vacancy" method="get">
+                <ul id="vacancyList">
+                    <th:block th:each="vacancy : ${vacancies}">
+                        <div class="content">
+    <!--                        <p class="company" th:text="${vacancy.getCompany()}"></p>-->
+                            <p class="position" th:text="${vacancy.getVacancyName()}"></p>
+                            <p class="salary" th:text="${vacancy.getSalary()}"></p>
+                            <div>
+                                <button type="submit" class="btn" name="deleteVacancyBtn">Удалить</button>
+                                <button type="submit" class="btn" name="changeVacancyBtn">Изменить</button>
+                                <button type="submit" class="btn" name="findResumesBtn">Подобрать</button>
+                                <input type="hidden" name="vacancyId" th:value="${vacancy.getVacancyId()}" />
+                            </div>
+                        </div>
+                    </th:block>
+                </ul>
+            </form>
+        </div>
+        <div class="section">
+            <form action="/addApplicant" method="get">
+                <h2>Сотрудники Компании</h2>
+                <button type="submit" class="btn" id="addApplicantVacancyBtn">Добавить сотрудника</button>
+            </form>
+            <ul id="applicantVacancyList">
+                <th:block th:each="applicantcompany : ${applicantcompanies}">
+                    <div class="content">
+                        <p class="position" th:text="${applicantcompany.getPositionName()}"></p>
+                        <p class="dates" th:text="${applicantcompany.getBeginDate()} + ' - ' + ${applicantcompany.getEndDate()}"></p>
+                        <p class="salary" th:text="${applicantcompany.getSalary()}"></p>
+                        <div>
+                            <button type="submit" class="btn" name="deleteApplicantBtn">Удалить</button>
+                            <button type="submit" class="btn" name="changeApplicantBtn">Изменить</button>
+                            <input type="hidden" name="companyApplicantId" th:value="${applicantcompany.getCompanyApplicantId()}" />
+                            <input type="hidden" name="applicantCompanyId" th:value="${applicantcompany.getApplicantCompanyId()}" />
+                        </div>
+                    </div>
+                </th:block>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#navbarContainer").load("navbar", function() {
+              $("#navbarContainer .nav-item").removeClass("active");
+              $("#navbarContainer .nav-link:contains('Разместить резюме')").parent().addClass("active");
+            });
+
+            // $('.findVacanciesBtn').click(function() {
+            //     const resumeId = $(this).closest('.content').data('id');
+            //     window.location.href = "/select?resumeId=" + encodeURIComponent(resumeId);
+            // });
+            //
+            // $('.deleteResumeBtn').click(function() {
+            //     const resumeId = $(this).closest('.content').data('id');
+            //     // openManipulationWindow('delete', resumeId);
+            // });
+            //
+            // $('.changeResumeBtn').click(function() {
+            //     const resumeId = $(this).closest('.content').data('id');
+            //     // openManipulationWindow('change', resumeId);
+            // });
+        });
+    </script>
+</body>
+</html>

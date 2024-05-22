@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кадровое агентство</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        select,
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 8px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .vacancy {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .vacancy a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbarContainer"></div>
+
+    <div class="container">
+        <h1>Подбор подходящих вакансий</h1>
+        <form>
+            <label>Тип Резюме:</label>
+            <select id="roleType">
+                <option value="candidate">Соискатель</option>
+                <option value="student">Студент</option>
+                <option value="employer">Работодатель</option>
+            </select>
+
+            <label id="edLevelLabel">Уровень образования:</label>
+            <select id="edLevel" th:block th:each="edLevel : ${edLevels}">
+                <option th:value="${edLevel.getEdlevelName()}" th:text="${edLevel.getEdlevelName()}"></option>
+            </select>
+
+            <label id="instituteLabel">Место учебы:</label>
+            <input type="text" id="instituteInput" placeholder="Поиск места учебы">
+
+            <label id="positionLabel">Должность:</label>
+            <input type="text" id="positionInput" placeholder="Поиск должности">
+
+            <label id="salaryLabel">Зарплата:</label>
+            <input type="number" id="salaryFrom" placeholder="От" min="0">
+            <input type="number" id="salaryTo" placeholder="До" min="0">
+
+            <label id="companyLabel">Компания:</label>
+            <input type="text" id="companyInput" placeholder="Поиск компании">
+
+            <label id="experienceLabel">Опыт работы:</label>
+            <input type="number" id="experienceInput" placeholder="Стаж (лет)" min="0">
+
+            <button type="submit">Найти вакансии</button>
+        </form>
+
+        <div class="vacancy">
+            <a href="#">Frontend Developer - $3000</a>
+            <p>Company Name / Candidate Name</p>
+        </div>
+
+        <div class="vacancy">
+            <a href="#">Marketing Manager - $4000</a>
+            <p>Company Name / Candidate Name</p>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#navbarContainer").load("navbar", function() {
+                $("#navbarContainer .nav-item").removeClass("active"); // Clear any previous active classes
+                $("#navbarContainer .nav-link:contains('Подбор вакансий')").parent().addClass("active");
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const resumeId = urlParams.get('resumeId');
+
+            document.getElementById('positionFilter').value = position;
+
+            const roleTypeSelect = $('#roleType');
+            const edLevelLabel = $('#edLevelLabel');
+            const edLevel = $('#edLevel');
+            const instituteLabel = $('#instituteLabel');
+            const instituteInput = $('#instituteInput');
+            const experienceLabel = $('#experienceLabel');
+
+            showHideFilters();
+            roleTypeSelect.on('change', showHideFilters);
+
+            function showHideFilters() {
+                const selectedType = roleTypeSelect.val();
+                if (selectedType === 'candidate') {
+                    edLevelLabel.hide();
+                    edLevel.hide();
+                    instituteLabel.hide();
+                    instituteInput.hide();
+                    experienceLabel.show();
+                } else if (selectedType === 'student') {
+                    edLevelLabel.show();
+                    edLevel.show();
+                    instituteLabel.show();
+                    instituteInput.show();
+                    experienceLabel.hide();
+                } else {
+                    edLevelLabel.show();
+                    edLevel.show();
+                    instituteLabel.show();
+                    instituteInput.show();
+                    experienceLabel.show();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

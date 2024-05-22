@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1251"> 
-  <title>Coverage Report > RoleNameConverter</title>
+  <title>Coverage Report > AuthRoleConverter</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,7 +22,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">com.web.recruit.models</a>
 </div>
 
-<h1>Coverage Summary for Class: RoleNameConverter (com.web.recruit.models)</h1>
+<h1>Coverage Summary for Class: AuthRoleConverter (com.web.recruit.models)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">RoleNameConverter</td>
+  <td class="name">AuthRoleConverter</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -81,16 +81,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import jakarta.persistence.Converter;
 &nbsp;
 &nbsp;@Converter(autoApply = true)
-<b class="nc">&nbsp;public class RoleNameConverter implements AttributeConverter&lt;RoleName, String&gt; {</b>
+<b class="nc">&nbsp;public class AuthRoleConverter implements AttributeConverter&lt;AuthRole, String&gt; {</b>
 &nbsp;
 &nbsp;    @Override
-&nbsp;    public String convertToDatabaseColumn(RoleName attribute) {
+&nbsp;    public String convertToDatabaseColumn(AuthRole attribute) {
 <b class="nc">&nbsp;        return attribute == null ? null : attribute.name();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
-&nbsp;    public RoleName convertToEntityAttribute(String dbData) {
-<b class="nc">&nbsp;        return dbData == null ? null : RoleName.valueOf(dbData);</b>
+&nbsp;    public AuthRole convertToEntityAttribute(String dbData) {
+<b class="nc">&nbsp;        return dbData == null ? null : AuthRole.valueOf(dbData);</b>
 &nbsp;    }
 &nbsp;}
 </code>

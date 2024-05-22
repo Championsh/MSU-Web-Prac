@@ -22,10 +22,10 @@ VALUES
 
 INSERT INTO auth(mail, pwd, auth_role)
 VALUES
-('first@mail.ru'::email, 'firstpwd', 'соискатель'::role_name),
-('second@mail.ru'::email, 'secondpwd', 'студент'::role_name),
-('third@mail.ru'::email, 'thirdpwd', 'работодатель'::role_name),
-('fourth@mail.ru'::email, 'fourthpwd', 'работодатель'::role_name);
+('first@mail.ru'::email, 'firstpwd', 'соискатель'),
+('second@mail.ru'::email, 'secondpwd', 'студент'),
+('third@mail.ru'::email, 'thirdpwd', 'работодатель'),
+('fourth@mail.ru'::email, 'fourthpwd', 'работодатель');
 
 INSERT INTO edlevel(edlevel_name)
 VALUES

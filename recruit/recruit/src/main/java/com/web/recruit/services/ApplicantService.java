@@ -30,4 +30,8 @@ public class ApplicantService extends CommonService<Applicant, ApplicantDao> {
     public Set<Company> findCompanies(Applicant obj) {
         return dao.findCompanies(obj);
     }
+
+    public Applicant findByAuth(Auth auth) {
+        return dao.findByAuth(auth);
+    }
 }

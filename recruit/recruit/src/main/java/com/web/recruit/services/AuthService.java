@@ -12,4 +12,12 @@ public class AuthService extends CommonService<Auth, AuthDao> {
     public Auth validateAuth(String mail, String password) {
         return dao.validateAuth(mail, password);
     }
+
+    public Auth findByMail(String mail) {
+        return dao.findByMail(mail);
+    }
+
+//    public Auth createAuth(String mail, String password) {
+//        return dao.validateAuth(mail, password);
+//    }
 }

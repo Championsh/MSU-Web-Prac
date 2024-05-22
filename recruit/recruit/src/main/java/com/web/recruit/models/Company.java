@@ -23,8 +23,8 @@ public class Company {
     @OneToMany(mappedBy = "company",fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vacancy> vacancies = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<ApplicantCompany> applicantCompanies = new ArrayList<>();
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ApplicantCompany> applicantCompanies = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -74,13 +74,13 @@ public class Company {
         this.vacancies = vacancies;
     }
 
-//    public List<ApplicantCompany> getApplicantCompanies() {
-//        return applicantCompanies;
-//    }
-//
-//    public void setApplicantCompanies(List<ApplicantCompany> applicantCompanies) {
-//        this.applicantCompanies = applicantCompanies;
-//    }
+    public List<ApplicantCompany> getApplicantCompanies() {
+        return applicantCompanies;
+    }
+
+    public void setApplicantCompanies(List<ApplicantCompany> applicantCompanies) {
+        this.applicantCompanies = applicantCompanies;
+    }
 
     public Set<Applicant> getApplicants() {
         return applicants;

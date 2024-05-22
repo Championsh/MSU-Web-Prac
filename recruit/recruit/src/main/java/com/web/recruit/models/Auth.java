@@ -22,11 +22,11 @@ public class Auth {
     @Column(name = "pwd")
     private String password;
 
-//    @Convert(converter = RoleNameConverter.class)
-    @Column(name = "auth_role")
+//    @Convert(converter = AuthRoleConverter.class)
     @Enumerated(EnumType.STRING)
-    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private RoleName authRole;
+    @Column(name = "auth_role")
+//    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    private AuthRole authRole;
 
     public Auth() {
     }
@@ -34,10 +34,10 @@ public class Auth {
     public Auth(String mail, String password, String authRole) {
         this.mail = mail;
         this.password = password;
-        this.authRole = RoleName.valueOf(authRole.toLowerCase());
+        this.authRole = AuthRole.valueOf(authRole.toLowerCase());
     }
 
-    public Auth(String mail, String password, RoleName authRole) {
+    public Auth(String mail, String password, AuthRole authRole) {
         this.mail = mail;
         this.password = password;
         this.authRole = authRole;
@@ -67,11 +67,12 @@ public class Auth {
         this.password = password;
     }
 
-    public RoleName getAuthRole() {
+    @Enumerated(EnumType.STRING)
+    public AuthRole getAuthRole() {
         return authRole;
     }
 
-    public void setAuthRole(RoleName authRole) {
+    public void setAuthRole(AuthRole authRole) {
         this.authRole = authRole;
     }
 

@@ -17,7 +17,11 @@ public class CompanyService extends CommonService<Company, CompanyDao> {
         return dao.findVacancies(obj);
     }
 
-    public Set<Applicant> findApplicants(Company obj) {
-        return dao.findApplicants(obj);
+    public List<ApplicantCompany> findApplicantCompanies(Company obj) {
+        return dao.findApplicantCompanies(obj);
+    }
+
+    public Company findByAuth(Auth auth) {
+        return dao.findByAuth(auth);
     }
 }

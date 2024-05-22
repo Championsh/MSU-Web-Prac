@@ -28,7 +28,7 @@ public class HibernateSessionFactory {
                                 Experience.class,
                                 ExperienceResume.class,
                                 Resume.class,
-                                RoleName.class,
+                                AuthRole.class,
                                 Vacancy.class)
                         .buildMetadata()
                         .buildSessionFactory();
